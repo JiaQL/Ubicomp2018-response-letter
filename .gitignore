@@ -1,0 +1,17 @@
+*.aux
+*.log
+*.out
+*.synctex
+*.synctex
+*.blg
+*.bbl
+*.dvi
+*.synctex.gz
+acl2018.pdf
+*.synctex(busy)
+*.DS_Store
+other
+backup
+ref/2.pdf
+figure/motivation_old.pdf
+SleepGuard_Response.idx

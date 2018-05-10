@@ -1,125 +1,77 @@
 %
-\documentclass[11pt,draftclsnofoot,onecolumn]{IEEEtran}
-
-\usepackage{times,graphicx,amsfonts}
-\usepackage{algorithm}
-\usepackage{algorithmicx}
-\usepackage[tbtags]{amsmath}
-\usepackage{cases}
-\usepackage{array}
-\usepackage{algpseudocode}
-\usepackage{amsmath}
-\usepackage{graphics}
- \usepackage{graphicx}
+\documentclass{article}
+\usepackage{geometry}
 \usepackage{url}
-\usepackage[T1]{fontenc}
-\usepackage{amssymb}
-\usepackage{cite}
-\usepackage{mathrsfs}
-\usepackage{caption}
-\usepackage{subfigure}
-\usepackage{ulem}
-\usepackage{multirow}
-\usepackage{textcomp}
-\usepackage{stfloats}
-\usepackage{diagbox}
+\geometry{a4paper, margin=2cm}
 
-%%%%%%%%%%%%%%%%%%%%%
+\input{preamble}
 
-\DeclareCaptionLabelSeparator{dot twospace}{.  }
-\captionsetup{labelsep=dot twospace}
-\newcommand{\systemname}{SLEEPGUARD}
-\newtheorem{assump}{Assumption}
-\newtheorem{axiom}{Axiom}
-\newtheorem{claim}{Claim}
-\newtheorem{conj}{Conjecture}[section]
-\newtheorem{crit}{Criterion}
-\newtheorem{theorem}{Theorem}
-\newtheorem{coro}{Corollary}[theorem]
-\newtheorem{definition}{Definition}
-\newtheorem{example}{Example}
-\newtheorem{fact}{Fact}
-\newtheorem{hypo}{Hypothesis}
-\newtheorem{lemma}{Lemma}
-\newtheorem{obsv}{Observation}[theorem]
-\newtheorem{prin}{Principle}
-\newtheorem{prob}{Problem}
-\newtheorem{ppty}{Property}
-\newtheorem{propo}{Proposition}
-\newtheorem{protocol}{Protocol}
-\newtheorem{remark}{Remark}
-\newtheorem{test}{Test}
-\newtheorem{transform}{Conversion Algorithm}
-\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
-
-\renewcommand{\algorithmicrequire}{\textbf{Input:}}
-\renewcommand{\algorithmicensure}{\textbf{Output:}}
-\usepackage{color}
-
-\newcommand{\ignore}[1]{{}}
-\usepackage{makeidx}
-\makeindex
-
-\hfuzz=\maxdimen
-\tolerance=10000
-\hbadness=10000
 %\bibliographystyle{ACM-Reference-Format}
 
 \begin{document}
 
-\title{Response Letter}
+{\large\noindent \textbf{Respond to reviewers' comments - Capturing Rich Sleep Information using Smartwatch Sensing Data}
+\\
+}
 
-\author{Re: 2339-{\systemname}: Capturing Rich Sleep Information using Smartwatch Sensing Data}
+\noindent{Dear Editor,}
 
-\maketitle
+\vspace{10mm}
 
-\noindent{Dear Editor,}\\
+We thank the reviewers for their constructive feedback. In the revised manuscript, we have tried to address all the issues raised by the
+reviewers. Please find attached to this letter a summary of the major changes and  detailed responses to each reviewer.
 
-\noindent{We are very grateful for your time and effort handling the review process of our paper entitled ``{\systemname}: Capturing Rich Sleep Information using Smartwatch Sensing Data'', submitted to ACM International joint Conference on Pervasive and Ubiquitous Computing (UBICOMP). } \\
-
-\noindent{We have carefully gone through the reviews, and would like to thank the reviewers for their constructive comments, which have greatly helped us improve the technical and presentation quality of our paper. We have addressed all the reviewers' comments carefully, and revised our paper accordingly. We highlighted the modified part in blue color in the revised version.}\\
-
-\noindent{Our submission includes (i) the revised manuscript, and (ii) a summary of the major changes and the detailed responses to each reviewer.}\\
-
-\noindent{Should you have any question regarding our submission, please feel free to contact me at your convenience. Thank you again for your help with our submission.}\\
-
-%\vspace{36pt}
+\vspace{20mm}
 
 \noindent{Sincerely yours,}\\
 
 %\vspace{36pt}
 
-\noindent{Liqiong Chang (First author)}\\
+\noindent{Liqiong Chang}\\
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\section{List of Major Changes}
+\section*{List of Major Changes}
 
-\begin{enumerate}
+\paragraph{M1.} We have better highlighted the motivation and scientific contributions of the work in \FIXME{Section xx} and demonstrated that how our work can lead to
+a better understanding of the sleep quality in \FIXME{Section xx}.
 
-\item We further \textbf{clarified the causes and original intentions} of detecting these rich events and \textbf{showed how } tracking more sleep events provides better support for assessing sleep quality.
+\paragraph{M2.} We have clarified the aim and better explained the results of our user survey. This can be found at \FIXME{Section xx}.
 
-\item We \textbf{reframed the scientific contribution} of the paper.
+\paragraph{M3.} In \FIXME{Section xx}, we provides a discussion on the use of a PSG.
 
-\item We \textbf{further demonstrated} the benefits of getting more detailed sleep information for users and how to help users improve sleep quality.
+\paragraph{M4.} \FIXME{Section xx} gives further detailed information of our experimental setup per reviewer feedback.
 
-\item We \textbf{clarified and explained the purpose and results} of the user survey.
+\paragraph{M5.} We have updated \FIXME{Section xx} to include a detailed description of the HMM model.
 
-\item We \textbf{added comprehensive commentary} on the PSG and its advantages/disadvantages .
+\paragraph{M6.} We have provided a discussion on scenarios of multiple sleeps, the occurrence of unusual arm positions, etc. This can be
+found at \FIXME{Section xx}.
 
-\item We \textbf{clarified some of the detailed settings} of the experiment for training parameters.
+\paragraph{M7.} We have made all the minor correction suggested by the reviewers and some others.
 
-\item We \textbf{re-clarified some detailed issues} in system design and experimental setup.
-
-\item We \textbf{added a detailed description} of the use of the HMM model.
-
-\item We \textbf{discussed} the situation of multiple sleepers, the probability of occurrence of unusual arm positions, etc.
-    
-\item We \textbf{corrected} multiple grammar and typo errors identified.
-
-\end{enumerate}
+%\item We further \textbf{clarified the causes and original intentions} of detecting these rich events and \textbf{showed how } tracking more sleep events provides better support for assessing sleep quality.
+%
+%\item We \textbf{reframed the scientific contribution} of the paper.
+%
+%\item We \textbf{further demonstrated} the benefits of getting more detailed sleep information for users and how to help users improve sleep quality.
+%
+%\item We \textbf{clarified and explained the purpose and results} of the user survey.
+%
+%\item We \textbf{added comprehensive commentary} on the PSG and its advantages/disadvantages .
+%
+%\item We \textbf{clarified some of the detailed settings} of the experiment for training parameters.
+%
+%\item We \textbf{re-clarified some detailed issues} in system design and experimental setup.
+%
+%\item We \textbf{added a detailed description} of the use of the HMM model.
+%
+%\item We \textbf{discussed} the situation of multiple sleepers, the probability of occurrence of unusual arm positions, etc.
+%
+%\item We \textbf{corrected} multiple grammar and typo errors identified.
+%
+%\end{enumerate}
 
 
 
