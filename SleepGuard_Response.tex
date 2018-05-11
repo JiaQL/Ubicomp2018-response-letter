@@ -157,75 +157,6 @@ found at Section 5.
 %
 %\end{itemize}
 
-<<<<<<< HEAD
-=======
-\subsection{``Compare SleepGuard against PSG or similar scientific methods and/or provide evidence that SleepGuard is able to provide sleep insights beyond what is currently possible with state-of-the art technologies. Specifically, reconsider using commercial systems for establishing ground truth and strengthen the scientific contributions beyond the engineering aspects.''}
-
-{\bf Response:} Thanks a lot for this comment.
-
-To better demonstrate our advantages in monitoring sleep compared to existing technologies, we will next describe the advantages and disadvantages of {\systemname} and PSG, the comparison between them, the reasons for choosing Fitbit as groundtruth, and our scientific contributions.
-
-Firstly, we will separately explain the advantages and disadvantages of Polysomnography (PSG) and {\systemname}. As we know, Polysomnography (PSG) or existing professional medical sleep monitoring systems use a variety of monitors to measure various physiological signals during sleep, such as brain waves, electrocardiogram, oxygen saturation, and respiration. Through the monitoring of these physiological signals, these medical devices can achieve a high degree of accuracy in monitoring sleep, which is based on the effects that actigraphy cannot achieve. However, these high-performance devices all have some disadvantages: First, they are expensive and require trained sleep technicians, a dedicated acquisition system, and technical expertise to record data, so they are not suitable and impractical for home use and deployment. Second, many monitors, such as brain electrodes, air flow monitors, etc., may cause discomfort to the user and may be intrusive to sleep. For the general public's sleep monitoring needs in daily life, the accuracy based on actigraphy is sufficient and the price is cheap, the equipment is simple and easy to carry, and the intrusiveness to sleep is greatly reduced.
-
-And when we talk about our system, {\systemname} is a holistic sleep monitoring system based on actigraphy, so its performance on sleep monitoring is not comparable to professional medical equipment like PSG. But compared with PSG or similar scientific methods, {\systemname} concentrates on physical activities rather than biomedical signals, so these rich physical activities detected are easily understood by users, and they can be effectively adjusted and improved sleep based on the results of monitoring. These are more meaningful and more valuable to the ordinary public than complex biological signals and various indicators. Moreover, it does not need special additional devices for detection. Compared with some existing commercial devices or research based on actigraphy, the performance of {\systemname} has been improved to some extent, but more advantages are reflected in the consideration of more abundant events. Our original intention and focus are more inclined to enable users to have a deeper and more comprehensive understanding of their sleep, explore the causes of sleep quality, and provide users with more practical advice to point them in a clear direction for improving sleep quality and being healthy.
-
-Secondly, we will clarify our groundtruth and the reasons for selecting it. When we evaluated the performance of {\systemname} for detecting sleep stages, we chose Fitbit as the groundtruth for the sleep stages. On the one hand, Fitbit is a commercial state-of-the-art and a popular sleep monitoring wristband. It has less interference with the subject's normal sleep process, making easier for subjects to relax and maintain normal sleep, and it is inexpensive and easy to deploy, so it is very convenient to apply to our large number of experimental scenarios. And it shows better performance in this kind of products based on actigraphy. On the other hand, there were some previous work~\cite{fitbit01,fitbit02,fitbit03} demonstrating Fitbit to have a high sensitivity for sleep, good association of movement measurements and to be comparable to PSG in adults. Fitbit is able to adequately track sleep cycles across the night and also can show promise in detecting sleep-wake states and sleep stage composition relative to PSG, particularly in the estimation of REM and light sleep. However, in these related works, it is also pointed out that Fitbit shows some significant limitations that it may overestimate sleep efficiency and total sleep time, so it is not an adequate substitute for PSG. But despite this, for us to use Fitbit to reference REM, light sleep, deep sleep have a minor effect. Moreover, one of the big drawbacks is that the PSG must attach a large number of electrodes and instruments to the subject's body. This will have a certain impact on the subject's psychology and sleep, making the result may do not reflect a real sleep condition. Even if the PSG measurement results are very accurate, the reliability of the data may be reduced due to the intrusiveness to sleep. So for all reasons we use the less intrusive similar product, Fitbit, as the groundtruth of the assessment system, instead of PSG which is expensive, time consuming, intrusive.
-
-Finally, from a scientific perspective, our challenge and contribution are listed in detail as follows. And we will elaborate on each of the algorithms we have designed.
-
-\begin{itemize}
-  \item Posture Detection: As we all know, it is very difficult to use only a smartwatch to describe the posture of the entire body, but we found a key basis for sleeping posture detection through observation and a pilot (see Sec. 3 in our paper). The key intuition for distinguishing between these postures is that arms have common and (reasonably) stable positions in each posture. Thus, we can build a mapping between the user's arms position and sleeping postures and identify the user¡¯s posture by identifying periods where the hand is in a position that correlates with a specific posture.
-  \item Hand Position Recognition: The key intuition is that any change in hand position results in a movement trajectory that is uniquely determined by the start and end position of the hand. However, if we only use the hand¡¯s movement trajectory to determine the position of the hand, then we only get the movement relative to a certain known starting position, not the final absolute position of the hand. That is, only when we know that each time the starting position of the hand before movement, we can judge the final hand position based on different trajectories. However, in practical applications, it is difficult for us to obtain the starting position of the hand every time. Therefore, we only cannot rely on the hand movement trajectory to achieve the purpose of detection. However, we found that when the hand is placed on the head, the hand placement is clearly different from that of the hand on the chest or abdomen, which makes it easier to detect by the angle characteristics calculated by the acceleration when placed on the head. When the hand is on the chest or abdomen, the angle characteristics are very similar and difficult to distinguish. Hence, we need an additional verification step to ensure the hand is on the chest or abdomen. We can based on key intuition is that we can observe acceleration signals to exhibit a distinctly periodic fluctuation. This is due to the movement of the abdomen and chest caused by breathing. Therefore, we can use the occurrence of respiratory events to determine if the hand is indeed on the body (abdomen or chest). Through the detection of respiratory events, we can not only determine the initial position of the hand before movement but also filter out some areas near the chest or abdomen, such as the shoulders or hips
-  \item Body rollover counts: The most intuitive way to detect the body rollover events is to detect the direction of rotation of the arm (the rotation angle measured by the gyroscope). However, there is a big drawback to this method. In the actual sleep process, the trajectory of the arm is very difficult to be predicted, especially for different users, and even if there is a slight difference in the starting position of the same sleeping position, it will cause the rotation angle to change and it is easy to cause misjudgment, so this method is not feasible. Therefore, we need to find a feature that is more representative of the body rollover events. And we observe different change patterns about the tilt angle values, when the rollover occurs.Specifcally, the angle values of three different axes are on the falling edge or rising edge simultaneously during a very short time period. To this end, a naive method to detect rollovers would be to rely on changes in angle measurements. However, this method suffers a very large error since other hand movements will also induce a similar change. To deal with this challenge, we incorporate the body postures to improve the detection accuracy. The body postures are different before and after the rollover. Therefore, after we detect the time when the angle
-      values changes, we term the time as a possible rollover time point. And then, we preform the sleep posture detection algorithm to detect sleep posture before and after this point.
-  \item Micro body movement: we can easily divide the body movement events into large movement and micro movement by detecting the signal duration time. In order to distinguish micro-body movements, including hand movement, arm raising and body trembling, it is very intuitive to detect based on the duration of the movement, because we find that the durations of these movements are significantly different. So we try to use the duration of these movements to perform detection. However, we find that the average duration of the arm rising is 1.8 s, but the duration of the other two types of movement is around 1 s, so it is difficult to set a suitable threshold to accurately detect them. Therefore, only through the duration of the movement we can only detect the arm rising with obvious feature. For the hand movement, and body trembling is not effective. However, we have found that body trembling is a sudden movement event, which leads to a more pronounced change in acceleration, so we can use acceleration changes to distinguish them based on such an observed fact.
-  \item Acoustic Event: Different from traditional parameters based on acoustic classification algorithm, which is based on multi-dimensional signal feature extraction methods to detect, which will lead to high complexity of the algorithm. To avoid this problem, we directly perform physical signals detection and recognition by mining the essential characteristics of events. In other words, we exploit the inherent characteristics of different acoustic events and design a lightweight algorithm for effective classification. And then we detect the start and end point of the signal, we improve the traditional algorithm, improving the accuracy of detection and avoiding a large amount of training data.
-  \item In conclusion, We present the design of {\systemname}, the first holistic sleep monitoring system to rely solely on sensors available in an off-the-shelf smartwatch to capture a wide range of sleep information that characterizes overall sleep quality, user behaviours during sleep, and the sleep environment. It can not only assess the user's quality, but also trace back to the real causes affecting sleep quality, and guide users to have the direction to improve sleep quality.
-
-\end{itemize}
-
-
-\subsection{``Clarify to what extent the data provided by SleepGuard provides users with superior insights into their sleep quality ("This in turn can help users understand their sleep behaviour and provide feedback on how to improve their sleep, for example, by changing routines surrounding sleep activity or improving the sleeping environment" / "Having a more comprehensive set of sleep-related events and activities available enables users to gain a deeper understanding of their sleep patterns and the causes of poor sleep, and to make recommendations on how to improve one's sleep quality."). Reconsider the user survey and improve empirical evidence that SleepGuard provides benefits for users. Alternatively, if user benefits cannot be established, remove user survey and any statement that SleepGuard provides users with a "deeper understanding of their sleep patterns".''}
-
-{\bf Response:} Thanks a lot for this comment.
-
-We did not conduct detailed analysis of the experiment, so in order to prove that {\systemname} can provides users with superior insights into their sleep quality, the results of the experiment were further analyzed by us in detailed and some clarification of user survey added in the revised paper.
-
-{\systemname} can not only assess the user's sleep quality, but also trace back to the real causes affecting sleep quality, and guide users to have the direction to improve sleep quality. We summarized the sleep problems and habit of the 15 volunteers who participated in our system assessment through a questionnaire survey and quality of sleep assessment. Then we found that there is a participant reported that his arm was always paralyzed, and five participants had poor sleep quality. We can find that the reason why the user's arm is numb is his incorrect sleep habits. The results from {\systemname} showed that he always tends to put his hands on his head, and long-term postures like this will inevitably lead to numbness of the arms. For similar situations, we will inform and remind users of their inappropriate postures and habits, and recommend that users should take some special measures to improve such situations. And for the poor quality of sleep of users, we analyzed the cause one by one based on events detected by {\systemname}. Through {\systemname}'s detecting, one user showed obvious symptoms of the difficulty of falling asleep and an unusually high number of body rollover. Our further analysis revealed that there was excessive light intensity and frequent noise in his sleeping environment. This may have led to the appearance of these symptoms and thus the poor quality of sleep. Then {\systemname} will recommend that users should focus on and improve his sleeping environment. In fact, this situation is very common that some users often choose to sleeping with a bright light because of one's fear of going to sleep alone. Even if they can also feel that this has an impact on their sleep. But in fact doing so for a long time is very bad for sleep and health. So {\systemname} also gives some suggestions for resolution, for example, do some proper exercise before going to bed or go to sleep with soft music that can be automatically turned off. And there is a user reported that he always had a nightmare at night, which led to poor sleep quality. We analyse the results of {\systemname} and found that user has been accustomed to sleep in the left side, and sometimes the hand is habitually placed on the chest. As \cite{nightmare} points that people who sleep on their left side are more at risk of nightmares. And the oppression of the chest by the hand causes the brain to have an ill hallucination, making it extremely easy to make a nightmare. So {\systemname} suggest to the user based on these two possible reasons, and hope that the user can take some special measures to change it, and recommend that the user can take some additional methods, such as listening to some soothing music to relax before sleep. Another user was detected by {\systemname} to be bothered by long-term snoring, as he himself mentioned. We know that the occurrence of snoring is most likely due to improper sleeping posture, and we also detected that the user is accustomed to sleep in a supine position, so on the one hand, {\systemname} suggests that the user try the sleeping position in the side position. On the other hand, if the situation still does not improve very well, it is recommended that the user go to the hospital in time for a corresponding check to avoid snoring caused by certain diseases. In addition, if we detect that some users are accustomed to sleeping in a prone position, we will remind and advise them because the prone position is bad for health.
-%And for the poor quality of sleep of users, we analyzed the causes based on the detected events including the difficulty of falling asleep due to poor sleep environment (excessive light intensity, noise), frequent body rollovers, and the nightmare caused by inappropriate hand positions, snoring and so on.
-
-According to these different possible reasons, {\systemname} proposes different reminders and suggestions to users, such as adjusting their sleeping posture, improving the sleeping environment, and consciously avoiding bad sleeping habits. As for how to adjust and avoid them, users can take special, mandatory or medical methods according to their own situation. For example, \cite{posture} present an anti-supine device mimicking the so-called "tennis ball technique" to control sleep posture, in order to improve OSA hypopnoea syndrome. And it is recommended that long-term snoring users perform physical examination so that they can timely discover the physical diseases that is most likely to cause snoring such as high blood pressure, cardiovascular and cerebrovascular diseases. In addition, we asked the 15 participants to make appropriate adjustments according to our recommendations and to conduct a return visit survey three weeks later. It was found that some of the users had some symptoms relieved and the average quality of sleep was improved. Therefore, we can find that, on the one hand,  {\systemname} detect these rich, fine-grained sleep-related events is effective and useful, on the other hand it can really help users to find the cause of poor sleep quality and give users the direction and reference to improve sleep quality.
-
-
-\subsection{``Add a thorough review of PSG and its advantages/disadvantages need to be added.''}
-
-{\bf Response:} Thanks for your valuable comment and we have added this in the Introduction section.
-
-The content we added in the Introduction section of  the revised paper is as follows:
-
-"As we all know, Polysomnography (PSG) is currently the most commonly used sleep monitoring method and is an important test for the diagnosis of sleep apnea syndrome. It is considered to be the gold standard for sleep monitoring. It is
-through the monitoring of respiratory, electroencephalogram (EEG), electrocardiogram(ECG), electro-oculogram, oxygen saturation and other indicators to determine sleep stage, sleep efficiency, and abnormal breathing to have an objective assessment of sleep quality. The advantage of PSG is the high-performance detection of sleep status and quality, and the diagnosis of sleep apnea, to develop the clinical treatment programs better. But it needs a huge monitoring system to support the detection of these physiological signals. A variety of monitoring instruments need to be attached to the human body in different ways, and there is the risk of losing sensor contact whenever the patient moves. And it requires trained sleep technicians technical expertise to record data, so it usually appears in medical centers to meet the need of some professional monitoring. It is not suitable for the daily needs of ordinary families. Moreover, For the users themselves, the numerous biological signals and parameters are difficult to understand and of little significance."
-
-\subsection{``Describe pilot study in adequate detail (Section 3).''}
-
-{\bf Response:} Thanks for your valuable comment and we have added this in the corresponding part.
-
-We are very sorry for the omission of a detailed description of pilot study in Section 3, and we have added this. The specific content is as follows, we will add in section 3:
-
-"And in order to improve the effectiveness of {\systemname} in detecting sleep posture, we need to consider as many arm positions as possible in different sleep postures, and ensure that the positions we choose are suitable for most people. So we randomly selected 100 volunteers. The ages ranged from 16 to 60 years old, and questionnaires were used to discuss their sleep posture during their daily. The main content of the questionnaire was about their common arm position in 4 different sleeping postures. Based on this investigation and some study of previous related works\cite{HandPosition1,HandPosition2}, we finally selected those positions to be our the basis for the study of sleep position detection. And we also found that the positions of these arms are effective during the training and testing of the algorithm."
-
-\subsection{``Clarify frequency thresholds used to detect respiration events.''}
-
-{\bf Response:} Thanks for your valuable comment.
-
-According to our survey\cite{Breath_frequence}, an adult's normal breathing frequency averages about 15 times per minute. As the age decreases or increases, the frequency of breathing increases. So we detect the occurrence of respiratory events using a threshold range of 12 times (0.2 Hz) per minute to 28 times (0.47 Hz) per minute. This is a reasonable respiratory frequency range. And we also found that this range is effective when we detect respiratory events.
-
-\subsection{``Page 8, 9: In the recognition of both the hand position and the micro body movement, several parameters were learned from experiments on "10 volunteers". However, these experiments as well as these volunteers are never introduced in the whole manuscript.''}
-
-{\bf Response:} Thanks for pointing out these issues which need further clarifications.
-
-In the recognition of both the hand position and the micro body movement, we recruited 10 volunteers (5 males and 5 females) from ages 16 to 60. They are asked to wear a smartwatch to sleep so that we can collect sensor data during sleep. Every volunteer contributes 10 nocturnal sleep data. And we use these 100 sets of nocturnal sleep-related data as training data for the parameters in these detection algorithms to enable us get these parameters. And these 10 volunteers are different from the 15 volunteers who participated in the evaluation of {\systemname}.
->>>>>>> origin/master
 
 %\subsection{``Clarify to what extent the data provided by SleepGuard provides users with superior insights into their sleep quality ("This
 %in turn can help users understand their sleep behaviour and provide feedback on how to improve their sleep, for example, by changing
@@ -315,168 +246,168 @@ In the recognition of both the hand position and the micro body movement, we rec
 
 
 
-\section{Revision Plan for the Comments of Reviewer 1}
-
-
-
-
-\subsection{``Page 1:Polysomnography (PSG) is currently the gold standard for sleep monitoring but never introduced in the Introduction section. The term is only briefly mentioned in the Discussion section. A thorough review of PSG and its advantages/disadvantages need to be added.''}
-
-{\bf Response:} Thanks a lot for this comment and we have added this in the Introduction section.
-
-The content we added in the Introduction section of  the revised paper is as follows:
-
-"As we all know, Polysomnography (PSG) is currently the most commonly used sleep monitoring method and is an important test for the diagnosis of sleep apnea syndrome. It is considered to be the gold standard for sleep monitoring. It is through the monitoring of respiratory, electroencephalogram (EEG), electrocardiogram(ECG), electro-oculogram, oxygen saturation and other indicators to determine sleep stage, sleep efficiency, and abnormal breathing to have an objective assessment of sleep quality. The advantage of PSG is the high-performance detection of sleep status and quality, and the diagnosis of sleep apnea, to develop the clinical treatment programs better. But it needs a huge monitoring system to support the detection of these physiological signals. A variety of monitoring instruments need to be attached to the human body in different ways, and there is the risk of losing sensor contact whenever the patient moves. And it requires trained sleep technicians technical expertise to record data, so it usually appears in medical centers to meet the need of some professional monitoring. It is not suitable for the daily needs of ordinary families. Moreover, For the users themselves, the numerous biological signals and parameters are difficult to understand and of little significance."
-
-
-
-\subsection{``Page 4: The manuscript says "... these positions were selected based on a pilot carried out in our test environment (see Sec. 3)". However, the pilot study is never introduced in Sec. 3.''}
-
-{\bf Response:} Thanks for the comments and we have added this in the corresponding part.
-
-We are very sorry for our omissions, and the specific content is as follows, we have added in section 3:
-
-"And in order to improve the effectiveness of {\systemname} in detecting sleep posture, we need to consider as many arm positions as possible in different sleep postures, and ensure that the positions we choose are suitable for most people. So we randomly selected 100 volunteers. The ages ranged from 16 to 60 years old, and questionnaires were used to discuss their sleep posture during their daily. The main content of the questionnaire was about their common arm position in 4 different sleeping postures. Based on this investigation and some study of previous related works\cite{HandPosition1,HandPosition2}, we finally selected those positions to be our the basis for the study of sleep position detection. And we also found that the positions of these arms are effective during the training and testing of the algorithm."
-
-
-\subsection{``Page 6: The frequency range of breathing is usually between 5 breaths per minute and 30 breaths per minute, much wider than "around 20 times per minute". What are the frequency thresholds you used to detect respiration events?''}
-
-{\bf Response:} Thanks for your valuable comment.
-
-According to our survey\cite{Breath_frequence}, an adult's normal breathing frequency averages about 15 times per minute. As the age decreases or increases, the frequency of breathing increases. So we detect the occurrence of respiratory events using a threshold range of 12 times (0.2 Hz) per minute to 28 times (0.47 Hz) per minute. This is a reasonable respiratory frequency range. And we also found that this range is effective when we detect respiratory events.
-
-%{\color{red} we need to discuss the accuracy requirement for Chinese calligraphy training. For example, if the Chinese character is 5cm x5cm, what is the accuracy requirement to monitor the writing process?}
-
-
-
-\subsection{``Page 8, 9: In the recognition of both the hand position and the micro body movement, several parameters were learned from experiments on "10 volunteers". However, these experiments as well as these volunteers are never introduced in the whole manuscript. How were the 10 volunteers
-  different from the 15 volunteers in the main study? Were their micro body movements recorded during sleep or posed while awake?''}
-
-{\bf Response:} Thanks for pointing out these issues which need further clarifications.
-
-In the recognition of both the hand position and the micro body movement, we recruited 10 volunteers (5 males and 5 females) from ages 16 to 60. They are asked to wear a smartwatch to sleep so that we can collect sensor data during sleep. Every volunteer contributes 10 nocturnal sleep data. And we use these 100 sets of nocturnal sleep-related data as training data for the parameters in these detection algorithms to enable us get these parameters. And these 10 volunteers are different from the 15 volunteers who participated in the evaluation of {\systemname}.
-
-
-
-\subsection{``Page 13: Where was the HMM model trained? Did you also use cross-validation?''}
-
-%{\color{red} When we mention the three systems, we need to let the reviewers know what they can do and what they can not. From this reviewer's feedback, he thinks the other systems are also doing calligraphy monitoring.}
-
-{\bf Response:} Thanks for your valuable comment and we have further clarified this issue.
-
-we build a Hidden Markov Model and use a series of sleep events as the observed sequence and the sleep stage as the implicit stage sequence. $obs_t= \{NB(t),NB_M(t),BA(t),NA(t)\}$ represents the feature vector at detection phase t. The explanation of each item, which is the input of HMM, is listed as follows. $NB(t)$: the number of occurrences of body rollover during the detection phase t. $NB_M(t)$: the number of occurrences of micro body movement. $BA(t)$: the measurement of  respiratory amplitude. $NA(t)$:the number of occurrences acoustic events. And $states_t$ =$\{$light sleep; deep sleep; REM$\}$ is an output of our model, which represents the sleep stage in the detection phase t. In the training of the HMM model, we used nocturnal sleep data from 10 volunteers who participated in the training parameters of each algorithm and make their sleep-related events as observation sequences and the corresponding sleep stages detected by Fitbit as hidden state sequences, to generate HMM models. However, we did not use cross-validation and we will try to further improve it in the future.
-
-\subsection{``Page 17: What is the reasoning behind selecting 50 sets of nocturnal sleep data from 210 sets?''}
-
-{\bf Response:} Thanks for your question.
-
-We will explain the reason is as follow:
-
-We collected a total of 210 sets of nocturnal sleep data, but we only selected 50 sets of nocturnal sleep data to evaluate {\systemname} in order to effectively assess performance while also reducing the time cost of the assessment. And to make the selection fairly and avoid overfitting, we randomly pick at least 3 sets of data for each participant.
-
-\subsection{``Page 2: Compared with the smartwatch used in the study, Fitbit indeed uses a larger set of sensor modalities. However, it is questionable
-  whether it is also more "invasive".}
-
-{\bf Response:} Thanks for your comment and we are very sorry this is a clerical error.
-
-The correct one should be "Fitbit, that monitors a narrower range of sleep events but uses a larger set of sensor modalities." And we have corrected it in Introduction section. Fitbit is a commercial smart bracelet and will not be more intrusive.
-
-\subsection{``Page 5: Are the signals shown in Fig. 5 from a single subject or the average of multiple subjects?''}
-
-{\bf Response:} Thanks for your question.
-
-It is from a single subject. Fig.5 show the rotation angles of the three axes recorded by the gyroscope, depicting the movement of the hand from the position beside the body to the abdomen, chest, and head. In the picture, we only show the signals from a single subject. This is because after experiments we found that the three hand trajectories of the hand are roughly the same in different people. We only show the approximate relative trend to indicate that the difference in the hand trajectory can be used as a feature to detect the final position of the hand.
-
-\subsection{``Page 6: In hand position recognition, respiratory events were used to distinguish chest/abdomen from shoulder/hip. However, the shoulder is in fact very close to the chest and usually exhibits clear respiratory motions. Is there any data supporting that respiratory events cannot be observed when the hand is put on the shoulder?''}
-
-{\bf Response:} Thanks for your comment.
-
-In hand position recognition, we re-explain in detail the purpose and benefits of the combination of hand movement trajectory and respiratory events. The corresponding content was added in section 2.1 of the revised paper. And the use of respiratory events can indeed distinguish chest/abdomen from shoulder/hip. Fig. \ref{Bodyhand} showed the angle change value measured by the gyroscope, when the hand moves from the side of the body to the chest and the shoulders. We found that their trajectories are very similar, but the obvious respiratory events cannot be observed when the hand is put on the shoulder.
-
-
-\begin{figure}[!t]
-	\centering
-	\subfigure[]{\label{BodytoChest}
-		\includegraphics[width=0.32\linewidth]{Figures/BodytoChest.pdf}}
-	%  \hfill
-	\subfigure[]{\label{BodytoShoulder}
-		\includegraphics[width=0.34\linewidth]{Figures/BodytoShoulder.pdf}}
-	\caption{The characteristics of hand movement from the position beside the body  to (a)  the chest, and (b) the shoulder.}\label{Bodyhand}
-\end{figure}
-
-\subsection{``Page 9: What is the reasoning behind "if the postures are different, we exclude this time point"? It is possible that a user can have multiple rollover events within a short period.''}
-
-{\bf Response:} Thanks for your comment and we are very sorry that this is a clerical error.
-
-The correct one should be "If the postures are same, we exclude this time point, otherwise the system detects a body rollover event." The resulting large change in angle may be due to the large movement of the arm, so in order to rule out such situations, in addition to calculating the exercise duration, we can use the sleep posture classification algorithm to determine whether the body postures are the same or not over a period of time before and after this point. Also, the user may have a situation where the user turns over continuously for a short period of time. So the angle will change at multiple points in time, we can calculate the body postures over a period of time before and after every point.
-
-\subsection{``Page 9: The parameters of the Moving Average filter need to be introduced.''}
-
-{\bf Response:} Thanks for your valuable comment and we have added the introduction of this parameter in the corresponding part.
-
-The moving average filter is based on the statistical rule, and the length of the moving window we use is 35, which can achieve better filtering effect and will not cause data distortion.
-
-\subsection{``Page 10: Eq. 5 is the first-order derivative of the merged acceleration, which should not be called "acceleration variance".''}
-
-{\bf Response:} Thanks for pointing out this issue and we have modify it.
-
-\subsection{``Page 10: Was the acceleration threshold 0.03 selected on the training data or the test data?''}
-
-{\bf Response:} Thanks for pointing out this issue.
-
-The acceleration threshold 0.03 selected on the training data. In the recognition of the micro body movement, we set an acceleration threshold so as to avoid some tiny body movements are ignored or some acceleration noises are mistaken as body movements. In order to achieve the best detection performance, we try to select an appropriate threshold based on the 100 sets of training data and eventually we set the threshold to be 0.03. And then we have used this acceleration threshold in test data and this value has been proved to be appropriate.
-
-\subsection{``Page 13: Sec. 2.3 introduces a situation where the wrist turned so that the back of the hand become downward, but the situation is not considered in the design of the posture detection algorithm.''}
-
-{\bf Response:} Thanks for pointing out this issue and the valuable comments.
-
-The situation of the wrist turned so that the back of the hand become downward, we considered in the design of the posture detection algorithm. For example, when a user change sleeping posture to the left side, the user¡¯s hand may be close to the pillow with the palm facing up. when sleeping in supine,the user put his hand on the head so the back of user¡¯s hand become downward. Or there is a micro body movement like the hand movement so that the back of the hand become downward.
-
-
-\subsection{``Page 13: There is no standard definition for "light sleep stage" or "deep sleep stage". They need to be defined based on the AASM sleep cycles.''}
-
-{\bf Response:} Thanks for your valuable comments.
-
-We will describe the definition for sleep stage is as follow:
-
-Physiological communities often regard sleep as a cyclical process composed of three stages: rapid eye movement (REM) stage, light sleep stage and deep sleep stage. The biological characteristics of different sleep stages exhibit distinguishingly. In clinical sleep study, the sleep stages are mainly identified by simultaneously evaluating three fundamental measurement modalities including brain activities, eye movements, and muscle contractions. The EEG measure using electrodes placed around the scalp interpret various sleep/wake states of the brain. And, EMG and EOG using electrodes placed on the skin near the eyes and on the muscles, respectively, measures in deeply differentiating REM stage from all the other stages. REM is an active period of sleep marked by intense brain activities and dream occurrence. Light sleep stage is a period of relaxation, when the heartbeat, breathing rate and muscle activity slow down. Deep sleep stage triggers hormones to promote body growth, as well as the repair and restoration of energy. But, apart from the implicit physiological activities, sleepers usually exhibit distinguishable physical activities in different sleep stages. For example, there are somniloquy and body trembles caused by frequent dreams generally appear in REM, large body movements such as body rollovers and arm raising happen in light sleep and micro body movements such as body trembling and snoring occur in deep sleep. Moreover, sleep cycle usually repeats four to six times over a night. The sleeper usually experiences a transition from light sleep to deep sleep and then enters REM, but sometimes there is also possible a phenomenon of skipping some certain sleep stages occurs during sleep. However, despite this, dependence between two successive sleep stages still exists, which also mentioned in SleepHunter.
-
-\subsection{``Page 14: One of the drawbacks of the experimental setup is that the subjects always slept alone. Whether the proposed approach can be generalized to multi-sleeper situations need to be added to the Discussion section.''}
-
-{\bf Response:} Thanks for your valuable comments and we have added this in the Discussion section.
-
-The content we added in the Discussion section of  the revised paper is as follows:
-
-"Currently, {\systemname} considers that the user is sleeping alone, but there are still more complicated situations in reality, such as sleeping with a bed partner, baby, and/or a pet. However, because {\systemname} is based on the detection of smartwatch, Unlike smartphone placed on the bed, it can show more sensitivity to the user's own activities. Therefore, for the detection performance of sleeping posture, body rollover and hand position events has almost no effect, but it may have some influence on the body micro movements and acoustic events. When people around us have relatively large movements, such as body rollover, they may fluctuate to users, making it possible for us to mistakenly detect it as user's micro movements. For this kind of situation, we can test the change of acceleration data in multi-sleeper situations by popularizing the experiment to adjust the detection threshold of our body's micro movements and achieve better detection performance. This will also be a direction for our future work. As for acoustic events, we can further limit conditions, such as training the different magnitudes of the energy of the sound signals collected by the user's hand at different positions to identify whether it is the user's own acoustic event or the sound of the bed partner. In addition, the related acoustic events of the bed partner can also be considered as a factor affecting the user's sleep."
-
-\subsection{``Page 16: Tables need to be self-explained. It should be denoted in Table 3 that the first row is the rollover numbers.''}
-
-{\bf Response:} Thanks for your valuable comments and we have modified it.
-
-
-\subsection{``Page 16: How was the phone accelerometer data labelled for micro body movement detection? Manually?''}
-
-{\bf Response:} Thanks for your question.
-
-Detailed description is as follow:
-
-When assessing the detection accuracy of micro body movement, we use camera to get the ground truth. In the meanwhile, in order to avoid missing some movements such as trembling concealed by the quilt, we also use the accelerometer embedded in the smartphone which placed on the bed to record the occurrence of micro body movements. For the acceleration data collected by smartphone, we first smooth the acceleration along the three axes, calculate Root Sum Square (RSS) to merge them, and obtain the first-order derivative of the merged acceleration. And then we use the threshold detection method to mark the occurrence of motion. Since body trembling is the easiest to be covered, we only focus on such events. So we use smartphone to detect the occurrence of events and the classification of the event is not performed.
-
-\subsection{``Page 19: A correlation analysis is recommended for the results in Table 9.''}
-
-{\bf Response:} Thanks for pointing out this issue and we have added this in the Corresponding part.
-
-The content we added in the revised paper is as follows:
-
-"In Table 9, as we can see, these value are the 14-day average results obtained by combining the sleep quality scores for each participant per day. The scores are divided into four levels, recorded as 0, 1, 2 and 3, representing poor, general, good and excellent, respectively. We compared sleep quality scores from {\systemname}, Fitbit, and user surveys. We can see that although {\systemname}'s assessment of sleep quality scores is only consistent with 9 users' subjective feelings. and only slightly better than Fitbit's results.However, results of the {\systemname} assessment are similar to those of the user survey. Possible inconsistencies are scores 2 and 3, that is, good and excellent, score 0 and 1, that is, poor and general, and there are few cases in which bad sleep has been assessed as good. These similar results are acceptable. We also found that when the results of the {\systemname} were inconsistent with the results of the user survey, it was consistent with the Fitbit results. The reason for such a situation may be that, for example, the user feels good about his own sleep but actually still has some neglected problems during sleep, which is detected by the sleep detection device, which is very helpful to the user."
-
-\subsection{``Page 20: An occurrence probability of unusual arm's positions in the collected data would be useful for the discussion.''}
-
-{\bf Response:} Thanks for your valuable comments and we have added this in the Discussion section.
-
-The content we added in the Discussion section of the revised paper is as follows:
-
-"We detect sleep posture based on arm's positions and focus on three specific positions when detecting the position of the hand. In sleep position detection, we are based on the assumption that between the user's arms position and sleeping postures that the arms have common and (reasonably) stable positions in each posture and we consider as many possible arm positions as possible in four sleeping postures, which are the most common arm's positions for users during sleep. In hand position detection, we chose the three most representative locations that do have an impact on sleep and health. But we know that not all users or a user will not have these common positions all the time. These unusual arm's positions may cause the performance of our sleep posture detection algorithm to degrade. But of the 15 participants we tested, we can see from the video that the unusual arm's positions are present, but these are basically a slight evolution of the common positions, which have little effect on the detection of the sleeping posture. Only a small part of the unusual position will cause us to produce false positives. For this issue, we will expand the test population to further measure the impact of unusual arm's position on our system and consider more hand positions in future work."
+%\section{Revision Plan for the Comments of Reviewer 1}
+%
+%
+%
+%
+%\subsection{``Page 1:Polysomnography (PSG) is currently the gold standard for sleep monitoring but never introduced in the Introduction section. The term is only briefly mentioned in the Discussion section. A thorough review of PSG and its advantages/disadvantages need to be added.''}
+%
+%{\bf Response:} Thanks a lot for this comment and we have added this in the Introduction section.
+%
+%The content we added in the Introduction section of  the revised paper is as follows:
+%
+%"As we all know, Polysomnography (PSG) is currently the most commonly used sleep monitoring method and is an important test for the diagnosis of sleep apnea syndrome. It is considered to be the gold standard for sleep monitoring. It is through the monitoring of respiratory, electroencephalogram (EEG), electrocardiogram(ECG), electro-oculogram, oxygen saturation and other indicators to determine sleep stage, sleep efficiency, and abnormal breathing to have an objective assessment of sleep quality. The advantage of PSG is the high-performance detection of sleep status and quality, and the diagnosis of sleep apnea, to develop the clinical treatment programs better. But it needs a huge monitoring system to support the detection of these physiological signals. A variety of monitoring instruments need to be attached to the human body in different ways, and there is the risk of losing sensor contact whenever the patient moves. And it requires trained sleep technicians technical expertise to record data, so it usually appears in medical centers to meet the need of some professional monitoring. It is not suitable for the daily needs of ordinary families. Moreover, For the users themselves, the numerous biological signals and parameters are difficult to understand and of little significance."
+%
+%
+%
+%\subsection{``Page 4: The manuscript says "... these positions were selected based on a pilot carried out in our test environment (see Sec. 3)". However, the pilot study is never introduced in Sec. 3.''}
+%
+%{\bf Response:} Thanks for the comments and we have added this in the corresponding part.
+%
+%We are very sorry for our omissions, and the specific content is as follows, we have added in section 3:
+%
+%"And in order to improve the effectiveness of {\systemname} in detecting sleep posture, we need to consider as many arm positions as possible in different sleep postures, and ensure that the positions we choose are suitable for most people. So we randomly selected 100 volunteers. The ages ranged from 16 to 60 years old, and questionnaires were used to discuss their sleep posture during their daily. The main content of the questionnaire was about their common arm position in 4 different sleeping postures. Based on this investigation and some study of previous related works\cite{HandPosition1,HandPosition2}, we finally selected those positions to be our the basis for the study of sleep position detection. And we also found that the positions of these arms are effective during the training and testing of the algorithm."
+%
+%
+%\subsection{``Page 6: The frequency range of breathing is usually between 5 breaths per minute and 30 breaths per minute, much wider than "around 20 times per minute". What are the frequency thresholds you used to detect respiration events?''}
+%
+%{\bf Response:} Thanks for your valuable comment.
+%
+%According to our survey\cite{Breath_frequence}, an adult's normal breathing frequency averages about 15 times per minute. As the age decreases or increases, the frequency of breathing increases. So we detect the occurrence of respiratory events using a threshold range of 12 times (0.2 Hz) per minute to 28 times (0.47 Hz) per minute. This is a reasonable respiratory frequency range. And we also found that this range is effective when we detect respiratory events.
+%
+%%{\color{red} we need to discuss the accuracy requirement for Chinese calligraphy training. For example, if the Chinese character is 5cm x5cm, what is the accuracy requirement to monitor the writing process?}
+%
+%
+%
+%\subsection{``Page 8, 9: In the recognition of both the hand position and the micro body movement, several parameters were learned from experiments on "10 volunteers". However, these experiments as well as these volunteers are never introduced in the whole manuscript. How were the 10 volunteers
+%  different from the 15 volunteers in the main study? Were their micro body movements recorded during sleep or posed while awake?''}
+%
+%{\bf Response:} Thanks for pointing out these issues which need further clarifications.
+%
+%In the recognition of both the hand position and the micro body movement, we recruited 10 volunteers (5 males and 5 females) from ages 16 to 60. They are asked to wear a smartwatch to sleep so that we can collect sensor data during sleep. Every volunteer contributes 10 nocturnal sleep data. And we use these 100 sets of nocturnal sleep-related data as training data for the parameters in these detection algorithms to enable us get these parameters. And these 10 volunteers are different from the 15 volunteers who participated in the evaluation of {\systemname}.
+%
+%
+%
+%\subsection{``Page 13: Where was the HMM model trained? Did you also use cross-validation?''}
+%
+%%{\color{red} When we mention the three systems, we need to let the reviewers know what they can do and what they can not. From this reviewer's feedback, he thinks the other systems are also doing calligraphy monitoring.}
+%
+%{\bf Response:} Thanks for your valuable comment and we have further clarified this issue.
+%
+%we build a Hidden Markov Model and use a series of sleep events as the observed sequence and the sleep stage as the implicit stage sequence. $obs_t= \{NB(t),NB_M(t),BA(t),NA(t)\}$ represents the feature vector at detection phase t. The explanation of each item, which is the input of HMM, is listed as follows. $NB(t)$: the number of occurrences of body rollover during the detection phase t. $NB_M(t)$: the number of occurrences of micro body movement. $BA(t)$: the measurement of  respiratory amplitude. $NA(t)$:the number of occurrences acoustic events. And $states_t$ =$\{$light sleep; deep sleep; REM$\}$ is an output of our model, which represents the sleep stage in the detection phase t. In the training of the HMM model, we used nocturnal sleep data from 10 volunteers who participated in the training parameters of each algorithm and make their sleep-related events as observation sequences and the corresponding sleep stages detected by Fitbit as hidden state sequences, to generate HMM models. However, we did not use cross-validation and we will try to further improve it in the future.
+%
+%\subsection{``Page 17: What is the reasoning behind selecting 50 sets of nocturnal sleep data from 210 sets?''}
+%
+%{\bf Response:} Thanks for your question.
+%
+%We will explain the reason is as follow:
+%
+%We collected a total of 210 sets of nocturnal sleep data, but we only selected 50 sets of nocturnal sleep data to evaluate {\systemname} in order to effectively assess performance while also reducing the time cost of the assessment. And to make the selection fairly and avoid overfitting, we randomly pick at least 3 sets of data for each participant.
+%
+%\subsection{``Page 2: Compared with the smartwatch used in the study, Fitbit indeed uses a larger set of sensor modalities. However, it is questionable
+%  whether it is also more "invasive".}
+%
+%{\bf Response:} Thanks for your comment and we are very sorry this is a clerical error.
+%
+%The correct one should be "Fitbit, that monitors a narrower range of sleep events but uses a larger set of sensor modalities." And we have corrected it in Introduction section. Fitbit is a commercial smart bracelet and will not be more intrusive.
+%
+%\subsection{``Page 5: Are the signals shown in Fig. 5 from a single subject or the average of multiple subjects?''}
+%
+%{\bf Response:} Thanks for your question.
+%
+%It is from a single subject. Fig.5 show the rotation angles of the three axes recorded by the gyroscope, depicting the movement of the hand from the position beside the body to the abdomen, chest, and head. In the picture, we only show the signals from a single subject. This is because after experiments we found that the three hand trajectories of the hand are roughly the same in different people. We only show the approximate relative trend to indicate that the difference in the hand trajectory can be used as a feature to detect the final position of the hand.
+%
+%\subsection{``Page 6: In hand position recognition, respiratory events were used to distinguish chest/abdomen from shoulder/hip. However, the shoulder is in fact very close to the chest and usually exhibits clear respiratory motions. Is there any data supporting that respiratory events cannot be observed when the hand is put on the shoulder?''}
+%
+%{\bf Response:} Thanks for your comment.
+%
+%In hand position recognition, we re-explain in detail the purpose and benefits of the combination of hand movement trajectory and respiratory events. The corresponding content was added in section 2.1 of the revised paper. And the use of respiratory events can indeed distinguish chest/abdomen from shoulder/hip. Fig. \ref{Bodyhand} showed the angle change value measured by the gyroscope, when the hand moves from the side of the body to the chest and the shoulders. We found that their trajectories are very similar, but the obvious respiratory events cannot be observed when the hand is put on the shoulder.
+%
+%
+%\begin{figure}[!t]
+%	\centering
+%	\subfigure[]{\label{BodytoChest}
+%		\includegraphics[width=0.32\linewidth]{Figures/BodytoChest.pdf}}
+%	%  \hfill
+%	\subfigure[]{\label{BodytoShoulder}
+%		\includegraphics[width=0.34\linewidth]{Figures/BodytoShoulder.pdf}}
+%	\caption{The characteristics of hand movement from the position beside the body  to (a)  the chest, and (b) the shoulder.}\label{Bodyhand}
+%\end{figure}
+%
+%\subsection{``Page 9: What is the reasoning behind "if the postures are different, we exclude this time point"? It is possible that a user can have multiple rollover events within a short period.''}
+%
+%{\bf Response:} Thanks for your comment and we are very sorry that this is a clerical error.
+%
+%The correct one should be "If the postures are same, we exclude this time point, otherwise the system detects a body rollover event." The resulting large change in angle may be due to the large movement of the arm, so in order to rule out such situations, in addition to calculating the exercise duration, we can use the sleep posture classification algorithm to determine whether the body postures are the same or not over a period of time before and after this point. Also, the user may have a situation where the user turns over continuously for a short period of time. So the angle will change at multiple points in time, we can calculate the body postures over a period of time before and after every point.
+%
+%\subsection{``Page 9: The parameters of the Moving Average filter need to be introduced.''}
+%
+%{\bf Response:} Thanks for your valuable comment and we have added the introduction of this parameter in the corresponding part.
+%
+%The moving average filter is based on the statistical rule, and the length of the moving window we use is 35, which can achieve better filtering effect and will not cause data distortion.
+%
+%\subsection{``Page 10: Eq. 5 is the first-order derivative of the merged acceleration, which should not be called "acceleration variance".''}
+%
+%{\bf Response:} Thanks for pointing out this issue and we have modify it.
+%
+%\subsection{``Page 10: Was the acceleration threshold 0.03 selected on the training data or the test data?''}
+%
+%{\bf Response:} Thanks for pointing out this issue.
+%
+%The acceleration threshold 0.03 selected on the training data. In the recognition of the micro body movement, we set an acceleration threshold so as to avoid some tiny body movements are ignored or some acceleration noises are mistaken as body movements. In order to achieve the best detection performance, we try to select an appropriate threshold based on the 100 sets of training data and eventually we set the threshold to be 0.03. And then we have used this acceleration threshold in test data and this value has been proved to be appropriate.
+%
+%\subsection{``Page 13: Sec. 2.3 introduces a situation where the wrist turned so that the back of the hand become downward, but the situation is not considered in the design of the posture detection algorithm.''}
+%
+%{\bf Response:} Thanks for pointing out this issue and the valuable comments.
+%
+%The situation of the wrist turned so that the back of the hand become downward, we considered in the design of the posture detection algorithm. For example, when a user change sleeping posture to the left side, the user¡¯s hand may be close to the pillow with the palm facing up. when sleeping in supine,the user put his hand on the head so the back of user¡¯s hand become downward. Or there is a micro body movement like the hand movement so that the back of the hand become downward.
+%
+%
+%\subsection{``Page 13: There is no standard definition for "light sleep stage" or "deep sleep stage". They need to be defined based on the AASM sleep cycles.''}
+%
+%{\bf Response:} Thanks for your valuable comments.
+%
+%We will describe the definition for sleep stage is as follow:
+%
+%Physiological communities often regard sleep as a cyclical process composed of three stages: rapid eye movement (REM) stage, light sleep stage and deep sleep stage. The biological characteristics of different sleep stages exhibit distinguishingly. In clinical sleep study, the sleep stages are mainly identified by simultaneously evaluating three fundamental measurement modalities including brain activities, eye movements, and muscle contractions. The EEG measure using electrodes placed around the scalp interpret various sleep/wake states of the brain. And, EMG and EOG using electrodes placed on the skin near the eyes and on the muscles, respectively, measures in deeply differentiating REM stage from all the other stages. REM is an active period of sleep marked by intense brain activities and dream occurrence. Light sleep stage is a period of relaxation, when the heartbeat, breathing rate and muscle activity slow down. Deep sleep stage triggers hormones to promote body growth, as well as the repair and restoration of energy. But, apart from the implicit physiological activities, sleepers usually exhibit distinguishable physical activities in different sleep stages. For example, there are somniloquy and body trembles caused by frequent dreams generally appear in REM, large body movements such as body rollovers and arm raising happen in light sleep and micro body movements such as body trembling and snoring occur in deep sleep. Moreover, sleep cycle usually repeats four to six times over a night. The sleeper usually experiences a transition from light sleep to deep sleep and then enters REM, but sometimes there is also possible a phenomenon of skipping some certain sleep stages occurs during sleep. However, despite this, dependence between two successive sleep stages still exists, which also mentioned in SleepHunter.
+%
+%\subsection{``Page 14: One of the drawbacks of the experimental setup is that the subjects always slept alone. Whether the proposed approach can be generalized to multi-sleeper situations need to be added to the Discussion section.''}
+%
+%{\bf Response:} Thanks for your valuable comments and we have added this in the Discussion section.
+%
+%The content we added in the Discussion section of  the revised paper is as follows:
+%
+%"Currently, {\systemname} considers that the user is sleeping alone, but there are still more complicated situations in reality, such as sleeping with a bed partner, baby, and/or a pet. However, because {\systemname} is based on the detection of smartwatch, Unlike smartphone placed on the bed, it can show more sensitivity to the user's own activities. Therefore, for the detection performance of sleeping posture, body rollover and hand position events has almost no effect, but it may have some influence on the body micro movements and acoustic events. When people around us have relatively large movements, such as body rollover, they may fluctuate to users, making it possible for us to mistakenly detect it as user's micro movements. For this kind of situation, we can test the change of acceleration data in multi-sleeper situations by popularizing the experiment to adjust the detection threshold of our body's micro movements and achieve better detection performance. This will also be a direction for our future work. As for acoustic events, we can further limit conditions, such as training the different magnitudes of the energy of the sound signals collected by the user's hand at different positions to identify whether it is the user's own acoustic event or the sound of the bed partner. In addition, the related acoustic events of the bed partner can also be considered as a factor affecting the user's sleep."
+%
+%\subsection{``Page 16: Tables need to be self-explained. It should be denoted in Table 3 that the first row is the rollover numbers.''}
+%
+%{\bf Response:} Thanks for your valuable comments and we have modified it.
+%
+%
+%\subsection{``Page 16: How was the phone accelerometer data labelled for micro body movement detection? Manually?''}
+%
+%{\bf Response:} Thanks for your question.
+%
+%Detailed description is as follow:
+%
+%When assessing the detection accuracy of micro body movement, we use camera to get the ground truth. In the meanwhile, in order to avoid missing some movements such as trembling concealed by the quilt, we also use the accelerometer embedded in the smartphone which placed on the bed to record the occurrence of micro body movements. For the acceleration data collected by smartphone, we first smooth the acceleration along the three axes, calculate Root Sum Square (RSS) to merge them, and obtain the first-order derivative of the merged acceleration. And then we use the threshold detection method to mark the occurrence of motion. Since body trembling is the easiest to be covered, we only focus on such events. So we use smartphone to detect the occurrence of events and the classification of the event is not performed.
+%
+%\subsection{``Page 19: A correlation analysis is recommended for the results in Table 9.''}
+%
+%{\bf Response:} Thanks for pointing out this issue and we have added this in the Corresponding part.
+%
+%The content we added in the revised paper is as follows:
+%
+%"In Table 9, as we can see, these value are the 14-day average results obtained by combining the sleep quality scores for each participant per day. The scores are divided into four levels, recorded as 0, 1, 2 and 3, representing poor, general, good and excellent, respectively. We compared sleep quality scores from {\systemname}, Fitbit, and user surveys. We can see that although {\systemname}'s assessment of sleep quality scores is only consistent with 9 users' subjective feelings. and only slightly better than Fitbit's results.However, results of the {\systemname} assessment are similar to those of the user survey. Possible inconsistencies are scores 2 and 3, that is, good and excellent, score 0 and 1, that is, poor and general, and there are few cases in which bad sleep has been assessed as good. These similar results are acceptable. We also found that when the results of the {\systemname} were inconsistent with the results of the user survey, it was consistent with the Fitbit results. The reason for such a situation may be that, for example, the user feels good about his own sleep but actually still has some neglected problems during sleep, which is detected by the sleep detection device, which is very helpful to the user."
+%
+%\subsection{``Page 20: An occurrence probability of unusual arm's positions in the collected data would be useful for the discussion.''}
+%
+%{\bf Response:} Thanks for your valuable comments and we have added this in the Discussion section.
+%
+%The content we added in the Discussion section of the revised paper is as follows:
+%
+%"We detect sleep posture based on arm's positions and focus on three specific positions when detecting the position of the hand. In sleep position detection, we are based on the assumption that between the user's arms position and sleeping postures that the arms have common and (reasonably) stable positions in each posture and we consider as many possible arm positions as possible in four sleeping postures, which are the most common arm's positions for users during sleep. In hand position detection, we chose the three most representative locations that do have an impact on sleep and health. But we know that not all users or a user will not have these common positions all the time. These unusual arm's positions may cause the performance of our sleep posture detection algorithm to degrade. But of the 15 participants we tested, we can see from the video that the unusual arm's positions are present, but these are basically a slight evolution of the common positions, which have little effect on the detection of the sleeping posture. Only a small part of the unusual position will cause us to produce false positives. For this issue, we will expand the test population to further measure the impact of unusual arm's position on our system and consider more hand positions in future work."
 
 
 \section{Revision Plan for the Comments of Reviewer 2}

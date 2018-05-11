@@ -6,21 +6,47 @@ problem. Thanks for the comments.
 \paragraph{R1.2} Embarrassed not to have introduced and provided sufficient details on our pilot study. This information is now given in Section 3.
 
 \paragraph{R1.3} We take 12-20 samples every minute to detect respiratory events. This is based on the observation that an adult typically
-breathes around 15 times per minute. We found that our sampling range is effective for our problem. This is now clarified in \FIXME{Section
-xx}.
+breathes around 15 times per minute. We found that this setting is effective for our problem. This is now clarified in \FIXME{Section xx}.
 
-\paragraph{R1.4} The 10 volunteers involved in our pilot study for determining the algorithm parameters are different from the 15 users recruited in our
-evaluation. The data were collected while they were sleeping. This is clarified in \FIXME{Section xx}.
+\paragraph{R1.4} The 10 volunteers involved in the training data process (pilot study) for determining the algorithm parameters are different from the 15 users recruited in our
+evaluation. The data were collected while they were sleeping. This is clarified in \FIXME{Section xx} in the revised manuscript.
 
-\paragraph{R1.5} Our HMM model is trained using the data collected from the 10 volunteers took part in our pilot study. The 10 volunteers
-are different from those involved in our evaluation. This is now clarified in \FIXME{Section xx}.
-
-\paragraph{R1.6} To evaluate our approach, we have randomly picked at least 3 sets of data from each of our 15 volunteers recruited for our
-evaluation. We do not evaluate our approach on the full dataset due to the time constraint. However, we are able to demonstrate the
-usefulness of our approach on a relatively small but representative set of data. This is explained in \FIXME{Section xx} of the revised
-manuscript. Please see also response to R4.2. \FIXME{ZW: I think we need a better answer than just saying we couldn't be asked to do
-experiments on all the 210 datasets. For examples, are there any (nearly) identical datasets?}
+\paragraph{R1.5} Our HMM model is trained using the training data. This is now clarified in \FIXME{Section xx}. See also R1.4.
+\vspace{-2mm}
+\paragraph{R1.6} To evaluate our approach, we have randomly picked at least 3 sets of data from each of our 15 testing users.
+The current submission is not evaluated on the full dataset due to the time constraint (as we need to watch each video to mark sleep
+events). That said, we are able to demonstrate the usefulness of our approach on a relatively small but representative set of data. We are
+currently working to extend our evaluation to the entire dataset. The results will be ready for and included in the camera ready paper.
 
 \paragraph{R1.7} ``invasive" is indeed a poorly chosen word for describing Fibit. We have reworded.
-
+\vspace{-2mm}
 \paragraph{R1.8} The signals shown in Fig.5 are from a single subject. This is clarified in the revised version.
+
+\paragraph{R1.9} Our work monitors the changes of speeds caused by respiration, which is then used to detect the relevant respiratory events.
+While our approach is effective when the hand is put on the chest, we observe little changes in the speeds when the hand is put on the
+shoulder (which makes it difficult to accurately detect respiratory motions). We have extended Section 2.1 in the revised version with new
+data to explain this. Thanks for the feedback.
+
+\paragraph{R1.10} Good catch, the sentence should be instead read as ``A body rollover event is recorded when the posture changes are detected between
+two time points". We have now corrected the phrase.
+
+\paragraph{R1.11} We have given the parameters for the moving average filter and explain how they are obtained in \FIXME{Section xx} in the revised version.
+
+\paragraph{R1.12} The acceleration threshold was determined from our training data. This is now clarified in \FIXME{Section xx}. See also
+R1.4.
+
+\vspace{-2mm}
+\paragraph{R1.13} Our algorithm does consider a situation where the wrist turns so that the back of the hand become downward. This is now clarified in \FIXME{Section xx}.
+
+\paragraph{R1.14} Yes, there is no standard definition for sleep stages. We have provided our definitions of the various stages (per reviewer suggestions) in \FIXME{Section xx}. 
+
+\paragraph{R1.15} We have extended \FIXME{Section xx} to discuss how our approach can be extended to a multi-sleeper scenario.
+
+\paragraph{R1.16} The ground truth of micro-body movements are obtained through (a) watching videos and (b) using the phone accelerometer data. We use the accelerometer data is because visions of subtle body movements may be blocked due to camera angles or surrounding objects e.g., quilt. This is clarified in \FIXME{Section xx}.
+
+\paragraph{R1.17} We have provided a more detailed analysis and discussion for Table 9 in \FIXME{Section xx}.
+
+\paragraph{R1.18} Having a discussion on the frequency of unusual arm positions is a great point. This is now included in \FIXME{Section
+xx}.
+
+\paragraph{R1.19} We have make all the minor corrections and fixed the presentation issues. Many thanks for the feedback.
