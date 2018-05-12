@@ -23,10 +23,18 @@ included in the camera ready paper.
 \vspace{-2mm}
 \paragraph{R1.8} The signals shown in Fig.5 are from a single subject. This is clarified in the revised version.
 
-\paragraph{R1.9} Our work monitors the changes of speeds caused by respiration, which is then used to detect the relevant respiratory events.
-While our approach is effective when the hand is put on the chest, we observe little changes in the speeds when the hand is put on the
-shoulder (which makes it difficult to accurately detect respiratory motions). We have extended Section 2.1 in the revised version with new
-data to explain this. Thanks for the feedback.
+\paragraph{R1.9} \textcolor{blue}{Our work detect the position of hand, and the use of respiratory events can help us to distinguish chest/abdomen from shoulder/hip. Fig. \ref{Bodyhand} showed the angle change value measured by the gyroscope, when the hand moves from the side of the body to the chest and the shoulders. We found that their trajectories are very similar, which makes it difficult to distinguish between these two positions, but the obvious respiratory events cannot be observed when the hand is put on the shoulder.}
+
+\begin{figure}[!t]
+	\centering
+	\subfigure[]{\label{BodytoChest}
+		\includegraphics[width=0.32\linewidth]{Figures/BodytoChest.pdf}}
+	%  \hfill
+	\subfigure[]{\label{BodytoShoulder}
+		\includegraphics[width=0.34\linewidth]{Figures/BodytoShoulder.pdf}}
+	\caption{The characteristics of hand movement from the position beside the body  to (a)  the chest, and (b) the shoulder.}\label{Bodyhand}
+\end{figure}
+
 
 \paragraph{R1.10} Good catch, the sentence should be instead read as ``A body rollover event is recorded when the posture changes are detected between
 two time points". We have now corrected the phrase.
