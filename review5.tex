@@ -2,8 +2,8 @@
 
 \paragraph{R5.1} Compared to medical equipment, our approach is less intrusive and has less disruption for the user's sleep. The use of
 single wrist sensors does have its limitations, because the hand movement frequency is different on different hands. However, such a
-difference would only affect the detection of the hand position and micro movements, and can be largely cancelled through calibration. Asu
-such, the limitation has little impact on understanding the sleep quality. This is explained at \FIXME{Section xx}.
+difference would only affect the detection of the hand position and micro movements, and can be largely cancelled through calibration. As
+such, the limitation has little impact on understanding the sleep quality. This is explained at Section 5.
 
 
 \paragraph{R5.2} Please see M2 on how our system help users to improve their sleep quality.
@@ -14,49 +14,48 @@ establish some of our ground truths. Please see also R4.1.
 
 \paragraph{R5.4} Yes, we are not the first to use wearable devices to track sleep behaviours. However, our work shows how
  to track a range of events that are not supported by prior systems, and how such information can help users to improve
-their sleep behaviours. We have better highlighted our novelty in \FIXME{Section xx}.
+their sleep behaviours. We have better highlighted our novelty in Section 6.
 
 \paragraph{R5.5}. Yes, in theory hands can be on any place. However, we found that the arm position strongly correlates to the body
-posture. This allows us to effectively map the arm position to the sleeping posture. This is clarified in \FIXME{Section xx}.
+posture. This allows us to effectively map the arm position to the sleeping posture. This is clarified in Section 2.1 and Section 3.1.
 
 \paragraph{R5.6} Our current implementation considers three hand positions as they are found to be the most common and representative
-positions during our user study. However, our algorithms can be extended to other positions. This is explained at \FIXME{Section xx}.
+positions during our user study. However, our algorithms can be extended to other positions. This is explained at Section 2.1.
 
 \paragraph{R5.7} The reviewer correctly pointed out that the breathing frequency can also be used to identify sleep stages. Our work uses
-the respiratory amplitude which is strongly correlated to the breathing frequency. This is clarified at \FIXME{Section xx}.
+the respiratory amplitude which is strongly correlated to the breathing frequency. This is clarified at Section 4.2.2.
 
-\paragraph{R5.8} We have extended the discussion of our hand position detection algorithm to provide more details in \FIXME{Section xx}. We
+\paragraph{R5.8} We have extended the discussion of our hand position detection algorithm to provide more details in Section 2.1. We
 thank the reviewer for the feedback.
 
-\paragraph{R5.9} A large respiratory amplitude is defined as \FIXME{less than three words please!} and a normal respiratory amplitude is defined as
-\FIXME{XX}. These values are chosen based on the prior study \FIXME{give citation on the revised manuscript please.}. This is clarified in
-\FIXME{Section xxx}.
+\paragraph{R5.9} \textcolor{blue}{ A large respiratory amplitude is defined as the respiratory amplitude of the NREM stage and a normal respiratory amplitude is defined as the respiratory amplitude of REM . This definition is based on the prior study[51] and our observation. This is clarified in Section 2.1}.
 
-\paragraph{R5.10} \FIXME{Briefly describe how did we label the data}. We use \FIXME{SVM} as our classifier. This information is now given in \FIXME{Section xx}.
+
+\paragraph{R5.10} \textcolor{blue}{ When we detect that the participant is currently in the REM stage or NREM stage, we calculate the current respiratory amplitude if the participant's hand is placed on the abdomen or chest. As for the acquisition of sleep stage, we use the intersection of the SLEEPGUARD and Fitbit measurement results. When the sleep stages measured by the SLEEPGUARD and Fitbit are consistent, ie REM or NREM, we determine that the current sleep stage is REM or NREM.  At the same time, We also take into account video recorded by the camera to manually label part of the respiratory. And we use a classifier based on template distance matching. This information is now given in Section 2.1.}
 
 \paragraph{R5.11} Please see R1.10 regarding the clerical error for body rollover counts. This error is fixed in the revised version.
 
 \paragraph{R5.12} x and w are the signal and impulse response respectively in Equation 7. We have clarified this in the revised manuscript.
 
-\paragraph{R5.13} Compared to existing algorithms, our methods (equations 9-12) require less training data to build and hence incurs less data collection overhead. This is now clarified in \FIXME{Section xx}.
+\paragraph{R5.13} Compared to existing algorithms, our methods (equations 9-12) require less training data to build and hence incurs less data collection overhead. This is now clarified in Section 2.2.
 
-\paragraph{R5.14} The parameters of equation 11 and 12 were determined from our training data. This is clarified in \FIXME{Section xx}. See also R1.4.
+\paragraph{R5.14} The parameters of equation 11 and 12 were determined from our training data. This is clarified in Section 2.2. See also R1.4.
 
 \paragraph{R5.15} Our illumination threshold was also chosen based on our training data -- we have visited the bedrooms of our 10 volunteers
 to take measurements. This threshold can be adjusted without affecting the generalization ability of our method. This is clarified in
-\FIXME{XX}.
+Section 2.3.
 
 \paragraph{R5.16} There is no prior work on addressing the unstable light readings from smartwatches. The closest one is SleepHunter, a
 smartphone-based approach. However, SleepHunter relies on the proximity sensor which is typically unavailable on smartwatches. This is
-explained in \FIXME{Section xx}.
+explained in Section 2.3.
 
-\paragraph{R5.17} We have given the features used for sleep stage and quality measurement in \FIXME{Section xx} in the revised manuscript.
+\paragraph{R5.17} We have given the features used for sleep stage and quality measurement in Section 2.4 in the revised manuscript.
 Specificially, we use four features, \#body rollers, \#micro-body movements, respiratory amplitudes, and \#acoustic events.
 
 \paragraph{R5.18} The time window length is set to 15 minutes when no event is detected. However, when an event (e.g., the change of the
-lighting condition) occurs, we perform immediately perform a sleep-stage detection. This is now clarified at \FIXME{Section xx}.
+lighting condition) occurs, we perform immediately perform a sleep-stage detection. This is now clarified at Section 4.2.1.
 
-\paragraph{R5.19} We take a sensor reading every 30ms, which is found to be sufficient for our work. This is clarified in \FIXME{Section xx}.
+\paragraph{R5.19} We take a sensor reading every 30ms, which is found to be sufficient for our work. This is clarified in Section 3.1.
 
 \paragraph{R5.20} The 15 volunteers recruited in our evaluation are indeed different from those participated in our training data collection. See also R1.4.
 
@@ -64,22 +63,22 @@ lighting condition) occurs, we perform immediately perform a sleep-stage detecti
 
 \paragraph{R5.22} Yes, we did get slightly different measurements from different wrists. However, the difference has negligible impact on
 understanding the sleep quality. As Sleep-Hunder and Sleep-as-Android use the sensor data from a smartphone putting on the bed, they do not
-suffer from the issue of different wrist data. These are clarified in \FIXME{Section xx}. See also R5.1.
+suffer from the issue of different wrist data. These are clarified in Section 5. See also R5.1.
 
 
 \paragraph{R5.23} We use a window length of 15 minutes to annotate events. See also R5.18.
 
-\paragraph{R5.24} Our ``cross-validation” works by training our classifier on one user and then testing it on the remaining 14 users. We then repeat this process until all the users have been tested at least once. We have now explained this in \FIXME{Section xxx}.
+\paragraph{R5.24} Our ``cross-validation" works by training our classifier on one user and then testing it on the remaining 14 users. We then repeat this process until all the users have been tested at least once. We have now explained this in Section 4.1.1.
 
 
-\paragraph{R5.25} For SleepMonitor, we compare to the results reported by the authors. This is clarified in \FIXME{Section xx}.
+\paragraph{R5.25} For SleepMonitor, we compare to the results reported by the authors. This is clarified in Section 4.1.1.
 
-\paragraph{R5.26} \FIXME{Why did the authors choose only one participant show the performance of body posture detection??? – Why not show the performance of all users????}
+\paragraph{R5.26} \textcolor{blue}{When showing the performance of the sleeping position detection, we not only showed the accuracy of the sleep position detection of each participant but also conducted a comprehensive analysis of the detection results of 15 individuals, which are shown in Fig. 19 and Table 2, respectively. The performance of the sleep position detection for each person is shown to demonstrate that the posture detection accuracy is consistently high across all users, and does not show major errors across users.}
 
-\paragraph{R5.27} To accurately detect cough patterns would require having an extensive set of data to capture the common patterns. We have provided a discussion in \FIXME{Section xx} for this issue.
+\paragraph{R5.27} To accurately detect cough patterns would require having an extensive set of data to capture the common patterns. We have provided a discussion in Section 4.1.5 for this issue.
 
 \paragraph{R5.28} Yes, the values in Table 9 are the averaged measurement numbers over a period of 14 days. This is now clarified in the revised manuscript.
 
-\paragraph{R5.29} \systemname can suggest a user to avoid some hand positions and the reviewer is right that it may be difficult to enforce such a change. We have clarified this in \FIXME{Section xx}.
+\paragraph{R5.29} \systemname can suggest a user to avoid some hand positions and the reviewer is right that it may be difficult to enforce such a change. We have clarified this in Section 4.2.4.
 
 \paragraph{R5.20} We have corrected the minor reference issue pointed out the reviewer.
