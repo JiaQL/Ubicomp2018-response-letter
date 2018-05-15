@@ -17,30 +17,30 @@ establish some of our ground truths. Please see also R4.1.
 their sleep behaviours. We have better highlighted our novelty in Section 6. Thanks for the feedback.
 
 \paragraph{R5.5} Agree, in theory hands can be on any place. However, we found that the arm position strongly correlates to the body
-posture. This allows us to effectively map the arm position to the sleeping posture. This is clarified in Sections 2.1.1 and 3.1 in the
+posture. This allows us to effectively map the arm position to the sleeping posture. This is clarified in Sections 2.2.1 and 3.1 in the
 revised manuscript.
 
 \paragraph{R5.6} Our current implementation considers three hand positions as they are found to be the most common and representative
-positions during our user study. However, our algorithms can be extended to other positions. This is explained at Section 2.1.2 in the new
+positions during our user study. However, our algorithms can be extended to other positions. This is explained at Section 2.2.2 in the new
 version of the manuscript.
 
 \paragraph{R5.7} The reviewer correctly pointed out that the breathing frequency can also be used to identify sleep stages. Our work uses
 the respiratory amplitude which is strongly correlated to the breathing frequency, but the breathing frequency can also be used. This is
 clarified at Section 4.2.2.
 
-\paragraph{R5.8} We have extended the discussion of our hand position detection algorithm to provide more details in Section 2.1.2. We
+\paragraph{R5.8} We have extended the discussion of our hand position detection algorithm to provide more details in Section 2.2.2. We
 thank the reviewer for the feedback.
 
 \paragraph{R5.9} A large respiratory amplitude is defined as the average respiratory amplitude (15) of the
 non-rapid-eye-movement (NREM) stage, and a normal respiratory amplitude is defined as the averaged respiratory amplitude (4) of the REM
-stage. The definitions are based on the prior study [48] and our observation. This is now clarified in Section 2.1.2.
+stage. The definitions are based on the prior study [48] and our observation. This is now clarified in Section 2.2.2.
 
 
-\paragraph{R5.10} The respiratory data collected in our training data are labeled using the following method. Our current implementation only detects
+\paragraph{R5.10} The respiratory training data are labeled using the following methods. Our current implementation only detects
 respiratory events when the hand is placed on the abnormal or the chest. The label of a sleep stage, i.e., REM or NREM, is confirmed when
 both Fitbit and \systemname reach a consensus. We also watch the recorded video to label some large respiratory events if these are
-observable from the video footage. Our classifier for respiratory events is k-nearest neighbor model (with $k=1$). This is now
-clarified in Section 2.1.2.
+observable from the video footage. Our classifier for respiratory events is k-nearest neighbor model (with $k=1$). This is now clarified in
+Section 2.2.2.
 
 
 \paragraph{R5.11} Our description for body rollover counts is wrong, sorry. We have fixed this error in the revised version. Please see
@@ -67,7 +67,7 @@ explained in Section 2.3.
 Specificially, we use four features, \#body rollers, \#micro-body movements, respiratory amplitudes, and \#acoustic events.
 
 \paragraph{R5.18} The time window length is set to 15 minutes when no event is detected. However, when an event (e.g., the change of the
-lighting condition) occurs, we perform immediately perform a sleep-stage detection. This is now clarified at Section 4.2.1.
+lighting condition) occurs, we perform immediately perform a sleep-stage detection. This is now clarified at Section 4.2.2.
 
 \paragraph{R5.19} We take a sensor reading every 30ms, which is found to be sufficient for our work. This is clarified in Section 3.1.
 
