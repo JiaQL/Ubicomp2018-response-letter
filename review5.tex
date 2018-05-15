@@ -36,7 +36,7 @@ non-rapid-eye-movement (NREM) stage, and a normal respiratory amplitude is defin
 stage. The definitions are based on the prior study [48] and our observation. This is now clarified in Section 2.1.2.
 
 
-\paragraph{R5.10} Large and normal respiratory events are labeled using the following method. Our current implementation only detects
+\paragraph{R5.10} The respiratory data collected in our training data are labeled using the following method. Our current implementation only detects
 respiratory events when the hand is placed on the abnormal or the chest. The label of a sleep stage, i.e., REM or NREM, is confirmed when
 both Fitbit and \systemname reach a consensus. We also watch the recorded video to label some large respiratory events if these are
 observable from the video footage. Our classifier for respiratory events is k-nearest neighbor model (with $k=1$). This is now
